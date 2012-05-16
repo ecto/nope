@@ -19,9 +19,12 @@ if (!servers) {
 
 console.log(servers);
 
+var fs = require('fs');
 var http = require('http');
 var bouncy = require('bouncy');
 var count = 0;
+
+var statusPage = fs.readFileSync(__dirname + '/../status.html');
 
 bouncy(function (req, bounce) {
   if (req.url != '/nope-status') {
@@ -32,6 +35,6 @@ bouncy(function (req, bounce) {
 }).listen(80);
 
 http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.end(statusPage);
 }).listen(9090);
