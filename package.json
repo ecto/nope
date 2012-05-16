@@ -1,0 +1,18 @@
+{
+  "author": "Cam Pedersen <diffference@gmail.com> (http://campedersen.com/)",
+  "name": "nope",
+  "description": "node proxy engine?",
+  "private": true,
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Lulo/nope.git"
+  },
+  "main": "nope.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
