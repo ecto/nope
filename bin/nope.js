@@ -30,21 +30,14 @@ bouncy(function (req, bounce) {
   req.on('error', function () {
     req.destroy();
   });
+
   if (!~req.url.indexOf('socket.io') && req.url != '/nope-status') {
-    //try {
-      bounce(servers[count++ % servers.length]).on('error', function () {
-        console.log(arguments);
-      });
-    //} catch (e) {
-    //  console.log('Could not bounce to endpoint', e);
-    //}
+    bounce(servers[count++ % servers.length]).on('error', function () {
+      console.log(arguments);
+    });
     s.sockets.volatile.emit('count', count);
   } else {
-    //try {
-      bounce(9090);
-    //} catch (e) {
-    //  console.log('Could not bounce to status server', e);
-    //}
+    bounce(9090);
   }
 }).listen(80);
 
