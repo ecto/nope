@@ -27,14 +27,34 @@ var count = 0;
 var statusPage = fs.readFileSync(__dirname + '/../status.html').toString();
 
 bouncy(function (req, bounce) {
-  if (req.url != '/nope-status') {
-    bounce(servers[count++ % servers.length]);
+  req.on('error', function () {
+    req.destroy();
+  });
+  if (!~req.url.indexOf('socket.io') && req.url != '/nope-status') {
+    //try {
+      bounce(servers[count++ % servers.length]).on('error', function () {
+        console.log(arguments);
+      });
+    //} catch (e) {
+    //  console.log('Could not bounce to endpoint', e);
+    //}
+    s.sockets.volatile.emit('count', count);
   } else {
-    bounce(9090);
+    //try {
+      bounce(9090);
+    //} catch (e) {
+    //  console.log('Could not bounce to status server', e);
+    //}
   }
 }).listen(80);
 
-http.createServer(function (req, res) {
+var statusServer = http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.end(statusPage.replace('{{count}}', count));
-}).listen(9090);
+});
+
+statusServer.listen(9090);
+
+var io = require('socket.io');
+var s = io.listen(statusServer);
+s.set('log level', 0);

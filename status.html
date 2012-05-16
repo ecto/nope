@@ -2,6 +2,20 @@
 <html>
 <head>
 <title>Nope Status</title>
+<style>
+body {
+  margin-top: 100px;
+  text-align: center;
+  font: bold 5em 'HelveticaNeue', Helvetica, Arial, sans-serif;
+}
+</style>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var socket = io.connect();
+socket.on('count', function (count) {
+  document.body.innerHTML = count;
+});
+</script>
 </head>
 <body>
 {{count}}

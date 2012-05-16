@@ -12,7 +12,8 @@
     "nope": "bin/nope.js"
   },
   "dependencies": {
-    "bouncy": "*"
+    "bouncy": "*",
+    "socket.io": "*"
   },
   "devDependencies": {},
   "optionalDependencies": {},
